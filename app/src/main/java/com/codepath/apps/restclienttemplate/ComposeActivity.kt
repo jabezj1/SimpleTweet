@@ -1,6 +1,7 @@
 package com.codepath.apps.restclienttemplate
 
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -41,9 +42,14 @@ class ComposeActivity : AppCompatActivity() {
 
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
                 // Fires right before text is changing
+                wordCount.setTextColor(Color.BLUE)
             }
 
             override fun afterTextChanged(s: Editable) {
+                if (s.length > 280){
+                    wordCount.setTextColor(Color.RED)
+                }
+
                 // Fires right after the text has changed
                 // tvDisplay.setText(s.toString())
             }
@@ -63,11 +69,7 @@ class ComposeActivity : AppCompatActivity() {
             if (tweetContent.length > 280){
                 //btnTweet.isEnabled = false
                 btnTweet.isClickable = false
-
-            }
-            if (tweetContent.length < 280){
-                //btnTweet.isEnabled = true
-                btnTweet.isClickable = true
+                btnTweet.setBackgroundColor(Color.RED)
             }
             else {
                 client.publishTweet(tweetContent, object: JsonHttpResponseHandler(){
